@@ -485,26 +485,28 @@
 /* Social Button Colors */
 .social-whatsapp {
   background: #25D366;
-  border-color: #25D366;
+  border: none;
   color: white;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
 }
 
 .social-whatsapp:hover {
   background: #128C7E;
-  border-color: #128C7E;
   transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(37, 211, 102, 0.4);
 }
 
 .social-telegram {
   background: #0088cc;
-  border-color: #0088cc;
+  border: none;
   color: white;
+  box-shadow: 0 4px 12px rgba(0, 136, 204, 0.3);
 }
 
 .social-telegram:hover {
   background: #006699;
-  border-color: #006699;
   transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 136, 204, 0.4);
 }
 
 /* Luxury Utilities */
@@ -550,19 +552,64 @@
 
 /* Hero Background - Desktop */
 .hero-bg {
-  background: linear-gradient(to right, #1A1A1A 0%, rgba(26, 26, 26, 0) 70%), url('https://static.readdy.ai/image/65f8103419a753d54a6fba13349934ad/743cc4431760ad57d076afca2247a10f.webp');
+  background-color: #1A1A1A;
+  background-image: url('./img/fon1.png');
   background-size: cover;
-  background-position: center;
+  background-position: center center;
   background-repeat: no-repeat;
+  background-attachment: scroll;
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  image-rendering: auto;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
 }
 
-/* Мобильная версия градиента */
+/* Мобильная версия */
 @media (max-width: 768px) {
   .hero-bg {
-    background: linear-gradient(to top, #1A1A1A 0%, rgba(26, 26, 26, 0) 70%), url('https://static.readdy.ai/image/65f8103419a753d54a6fba13349934ad/743cc4431760ad57d076afca2247a10f.webp');
     background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+  }
+}
+
+/* Планшеты */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .hero-bg {
+    background-size: cover;
+    background-position: center center;
+  }
+}
+
+/* Десктоп */
+@media (min-width: 1025px) and (max-width: 1919px) {
+  .hero-bg {
+    background-size: cover;
+    background-position: center center;
+  }
+}
+
+/* Большие экраны */
+@media (min-width: 1920px) {
+  .hero-bg {
+    background-size: 100% auto;
+    background-position: center top;
+    min-height: 100vh;
+  }
+}
+
+/* Очень большие экраны */
+@media (min-width: 2560px) {
+  .hero-bg {
+    background-size: cover;
+    background-position: center center;
   }
 }
 
@@ -642,19 +689,4 @@
 .hero-title {
   word-break: break-word;
   hyphens: auto;
-}
-
-/* Адаптивное уменьшение только на очень маленьких экранах */
-@media (max-width: 480px) {
-  .hero-title {
-    font-size: 0.875rem !important;
-    line-height: 1.1;
-  }
-}
-
-@media (max-width: 360px) {
-  .hero-title {
-    font-size: 0.75rem !important;
-    line-height: 1.1;
-  }
 }
