@@ -106,17 +106,145 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
   
-  // Scroll animation
-  document.addEventListener('DOMContentLoaded', function () {
-    const elements = document.querySelectorAll('.animate-on-scroll');
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) entry.target.classList.add('visible');
-        });
-      },
-      { threshold: 0.1 }
-    );
-    elements.forEach(element => observer.observe(element));
-  });
+// Scroll animation
+document.addEventListener('DOMContentLoaded', function () {
+  const elements = document.querySelectorAll('.animate-on-scroll');
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    },
+    { threshold: 0.1 }
+  );
+  elements.forEach(element => observer.observe(element));
+});
+
+// Catalog Slider
+document.addEventListener('DOMContentLoaded', function () {
+  const sliderContainer = document.querySelector('.catalog-slider-container');
+  const prevBtn = document.getElementById('catalogPrevBtn');
+  const nextBtn = document.getElementById('catalogNextBtn');
+  const cards = document.querySelectorAll('.catalog-card');
+  const indicators = document.querySelectorAll('.catalog-indicator');
+  
+  if (sliderContainer && prevBtn && nextBtn && cards.length > 0) {
+    // Add smooth scrolling
+    sliderContainer.style.scrollBehavior = 'smooth';
+    
+    // Calculate scroll amount based on card width + gap
+    function getScrollAmount() {
+      const card = cards[0];
+      const cardWidth = card.offsetWidth;
+      const gap = 32; // 2rem = 32px
+      return cardWidth + gap;
+    }
+    
+    // Update active indicator based on scroll position
+    function updateIndicators() {
+      const scrollAmount = getScrollAmount();
+      const currentIndex = Math.round(sliderContainer.scrollLeft / scrollAmount);
+      
+      indicators.forEach((indicator, index) => {
+        if (index === currentIndex) {
+          indicator.classList.add('active');
+        } else {
+          indicator.classList.remove('active');
+        }
+      });
+    }
+    
+    // Next button click
+    nextBtn.addEventListener('click', () => {
+      const scrollAmount = getScrollAmount();
+      sliderContainer.scrollLeft += scrollAmount;
+    });
+    
+    // Previous button click
+    prevBtn.addEventListener('click', () => {
+      const scrollAmount = getScrollAmount();
+      sliderContainer.scrollLeft -= scrollAmount;
+    });
+    
+    // Indicator click navigation
+    indicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => {
+        const scrollAmount = getScrollAmount();
+        sliderContainer.scrollLeft = scrollAmount * index;
+      });
+    });
+    
+    // Update button visibility based on scroll position
+    function updateButtons() {
+      const maxScroll = sliderContainer.scrollWidth - sliderContainer.clientWidth;
+      
+      // Hide/show prev button
+      if (sliderContainer.scrollLeft <= 0) {
+        prevBtn.style.opacity = '0.5';
+        prevBtn.style.pointerEvents = 'none';
+      } else {
+        prevBtn.style.opacity = '1';
+        prevBtn.style.pointerEvents = 'auto';
+      }
+      
+      // Hide/show next button
+      if (sliderContainer.scrollLeft >= maxScroll - 5) {
+        nextBtn.style.opacity = '0.5';
+        nextBtn.style.pointerEvents = 'none';
+      } else {
+        nextBtn.style.opacity = '1';
+        nextBtn.style.pointerEvents = 'auto';
+      }
+    }
+    
+    // Listen to scroll events
+    sliderContainer.addEventListener('scroll', () => {
+      updateButtons();
+      updateIndicators();
+    });
+    
+    // Initial state
+    updateButtons();
+    updateIndicators();
+    
+    // Update on window resize
+    window.addEventListener('resize', () => {
+      updateButtons();
+      updateIndicators();
+    });
+    
+    // Drag-to-scroll functionality for desktop
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    sliderContainer.addEventListener('mousedown', (e) => {
+      isDown = true;
+      sliderContainer.style.cursor = 'grabbing';
+      startX = e.pageX - sliderContainer.offsetLeft;
+      scrollLeft = sliderContainer.scrollLeft;
+    });
+
+    sliderContainer.addEventListener('mouseleave', () => {
+      isDown = false;
+      sliderContainer.style.cursor = 'grab';
+    });
+
+    sliderContainer.addEventListener('mouseup', () => {
+      isDown = false;
+      sliderContainer.style.cursor = 'grab';
+    });
+
+    sliderContainer.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - sliderContainer.offsetLeft;
+      const walk = (x - startX) * 2;
+      sliderContainer.scrollLeft = scrollLeft - walk;
+    });
+    
+    // Set initial cursor
+    sliderContainer.style.cursor = 'grab';
+  }
+});
   
