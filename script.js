@@ -76,7 +76,8 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('button').forEach(button => {
       if (
         button.textContent.includes('Получить консультацию') ||
-        button.textContent.includes('Запросить детали')
+        button.textContent.includes('Запросить детали') ||
+        button.textContent.includes('Получить расчет')
       ) {
         button.addEventListener('click', openModal);
       }

@@ -550,10 +550,16 @@
   content: "\f3c2"; 
 }
 
+/* Logo Size */
+.logo-large {
+  width: 120px !important;
+  height: auto;
+}
+
 /* Hero Background - Desktop */
 .hero-bg {
   background-color: #1A1A1A;
-  background-image: url('./img/fon1.png');
+  background-image: url('./img/fon2.png');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -845,4 +851,21 @@
   .catalog-indicator.active {
     width: 24px;
   }
+}
+
+
+/* CTA Section */
+.cta-section {
+  background: var(--gold);
+  position: relative;
+}
+
+.cta-section button {
+  transition: all 0.3s ease;
+  transform: translateY(0);
+}
+
+.cta-section button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
