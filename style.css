@@ -1227,7 +1227,7 @@
     height: 300px;
     object-fit: cover;
     border-radius: 12px;
-    margin-top: -1rem;
+    margin-top: -3rem;
   }
   
   #why-us h2 {
@@ -1256,6 +1256,11 @@
   
   #why-us .space-y-8 > * + * {
     margin-top: 1.5rem;
+  }
+  
+  /* Уменьшаем отступ после последней причины в мобильной версии */
+  #why-us .space-y-8 > *:last-child {
+    margin-bottom: 0.5rem;
   }
   
   /* Remove card styling - keep transparent */
@@ -1304,7 +1309,7 @@
   
   .why-choose-right {
     height: 250px;
-    margin-top: -5rem;
+    margin-top: -6.2rem;
   }
   
   #why-us .flex {
@@ -1705,6 +1710,37 @@ footer .border-t::before {
   
   footer nav a:hover {
     transform: translateY(-2px);
+  }
+  
+  /* Выравнивание иконок контактов в мобильной версии */
+  footer .space-y-6 > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  
+  footer .space-y-6 > div > div:first-child {
+    flex-shrink: 0;
+    margin-top: 0;
+  }
+  
+  footer .space-y-6 > div > div:last-child {
+    text-align: left;
+    flex: 1;
+    min-width: 0;
+    padding-top: 0.25rem;
+  }
+  
+  footer .space-y-6 > div > div:last-child p {
+    margin: 0;
+    line-height: 1.4;
+  }
+  
+  footer .space-y-6 > div > div:last-child p:not(:last-child) {
+    margin-bottom: 0.25rem;
   }
 }
 
