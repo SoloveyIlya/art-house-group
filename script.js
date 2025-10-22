@@ -1,15 +1,31 @@
 // FAQ
 document.addEventListener('DOMContentLoaded', function () {
-    const faqButtons = document.querySelectorAll('.faq-button');
-    faqButtons.forEach(button => {
-      button.addEventListener('click', function () {
-        const content = this.nextElementSibling;
-        const icon = this.querySelector('.faq-icon');
-        content.classList.toggle('hidden');
-        if (!content.classList.contains('hidden')) {
-          icon.classList.replace('ri-add-line', 'ri-subtract-line');
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      const answer = item.querySelector('.faq-answer');
+      const icon = item.querySelector('.faq-icon');
+      
+      question.addEventListener('click', function () {
+        // Закрыть все другие FAQ
+        faqItems.forEach(otherItem => {
+          if (otherItem !== item) {
+            otherItem.classList.remove('active');
+            const otherAnswer = otherItem.querySelector('.faq-answer');
+            const otherIcon = otherItem.querySelector('.faq-icon');
+            otherAnswer.classList.add('hidden');
+            otherIcon.classList.remove('minus');
+          }
+        });
+        
+        // Переключить текущий FAQ
+        item.classList.toggle('active');
+        answer.classList.toggle('hidden');
+        
+        if (item.classList.contains('active')) {
+          icon.classList.add('minus');
         } else {
-          icon.classList.replace('ri-subtract-line', 'ri-add-line');
+          icon.classList.remove('minus');
         }
       });
     });
@@ -249,12 +265,12 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 
-// Simple Parallax Effect with Image Loading
+// Fixed Image for Why Choose Us Section
 document.addEventListener('DOMContentLoaded', function() {
   const parallaxImage = document.querySelector('.parallax-image');
   
   if (parallaxImage) {
-    console.log('Parallax image found, checking load status...');
+    console.log('Fixed image found, initializing...');
     
     // Handle image load success
     parallaxImage.addEventListener('load', function() {
@@ -274,17 +290,6 @@ document.addEventListener('DOMContentLoaded', function() {
       this.style.fontWeight = 'bold';
     });
     
-    function updateParallax() {
-      const scrolled = window.pageYOffset;
-      const parallaxSpeed = 0.5;
-      const yPos = -(scrolled * parallaxSpeed);
-      
-      parallaxImage.style.transform = `translateY(${yPos}px)`;
-    }
-    
-    window.addEventListener('scroll', updateParallax);
-    updateParallax();
-    
     // Force image reload if needed
     setTimeout(() => {
       if (!parallaxImage.complete || parallaxImage.naturalHeight === 0) {
@@ -297,7 +302,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }, 1000);
   } else {
-    console.log('Parallax image not found!');
+    console.log('Fixed image not found!');
   }
 });
   
