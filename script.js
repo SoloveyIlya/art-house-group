@@ -248,4 +248,56 @@ document.addEventListener('DOMContentLoaded', function () {
     sliderContainer.style.cursor = 'grab';
   }
 });
+
+// Simple Parallax Effect with Image Loading
+document.addEventListener('DOMContentLoaded', function() {
+  const parallaxImage = document.querySelector('.parallax-image');
+  
+  if (parallaxImage) {
+    console.log('Parallax image found, checking load status...');
+    
+    // Handle image load success
+    parallaxImage.addEventListener('load', function() {
+      console.log('Image loaded successfully!');
+      this.style.background = 'none';
+    });
+    
+    // Handle image load error
+    parallaxImage.addEventListener('error', function() {
+      console.log('Image failed to load, using fallback');
+      this.style.background = 'linear-gradient(135deg, #FFD700, #FFA500)';
+      this.style.display = 'flex';
+      this.style.alignItems = 'center';
+      this.style.justifyContent = 'center';
+      this.style.color = '#000';
+      this.style.fontSize = '1.5rem';
+      this.style.fontWeight = 'bold';
+    });
+    
+    function updateParallax() {
+      const scrolled = window.pageYOffset;
+      const parallaxSpeed = 0.5;
+      const yPos = -(scrolled * parallaxSpeed);
+      
+      parallaxImage.style.transform = `translateY(${yPos}px)`;
+    }
+    
+    window.addEventListener('scroll', updateParallax);
+    updateParallax();
+    
+    // Force image reload if needed
+    setTimeout(() => {
+      if (!parallaxImage.complete || parallaxImage.naturalHeight === 0) {
+        console.log('Image not loaded, forcing reload...');
+        const src = parallaxImage.src;
+        parallaxImage.src = '';
+        setTimeout(() => {
+          parallaxImage.src = src;
+        }, 100);
+      }
+    }, 1000);
+  } else {
+    console.log('Parallax image not found!');
+  }
+});
   

@@ -577,12 +577,21 @@
 /* Мобильная версия */
 @media (max-width: 768px) {
   .hero-bg {
-    background-size: cover;
-    background-position: center center;
+    background-size: contain;
+    background-position: center 35%;
     background-attachment: scroll;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+  }
+}
+
+/* Очень маленькие экраны */
+@media (max-width: 480px) {
+  .hero-bg {
+    background-size: 120% auto;
+    background-position: center 30%;
+    background-repeat: no-repeat;
   }
 }
 
@@ -695,6 +704,36 @@
 .hero-title {
   word-break: break-word;
   hyphens: auto;
+}
+
+/* Мобильная версия заголовка */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.25rem !important; /* 4xl */
+    line-height: 2.5rem !important;
+    word-break: keep-all;
+    hyphens: none;
+  }
+  
+  /* Скрываем весь текст между span'ами (включая тире) */
+  .hero-title {
+    font-size: 0;
+  }
+  
+  /* Восстанавливаем размер для span'ов */
+  .hero-title span {
+    font-size: 2.25rem;
+  }
+  
+  /* Первый span с тире на одной строке */
+  .hero-title span:first-child {
+    display: inline;
+  }
+  
+  /* Принудительный перенос строки после тире */
+  .hero-title span:first-child::after {
+    display: block;
+  }
 }
 
 /* Catalog Slider Styles */
@@ -868,4 +907,389 @@
 .cta-section button:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Gallery Section Styles - Matching the photo layout */
+.gallery-main-image {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  height: fit-content;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.05));
+  border-radius: 8px;
+}
+
+.gallery-main-image:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(255, 215, 0, 0.3), 0 0 0 1px rgba(255, 215, 0, 0.5);
+}
+
+.gallery-side-image {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  cursor: pointer;
+  height: fit-content;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 165, 0, 0.03));
+  border-radius: 8px;
+}
+
+.gallery-side-image:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(255, 215, 0, 0.4), 0 0 0 1px rgba(255, 215, 0, 0.6);
+  z-index: 20;
+}
+
+.gallery-main-image img,
+.gallery-side-image img {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-side-image:hover img {
+  filter: brightness(1.1) contrast(1.05);
+}
+
+/* Premium Gallery border effects */
+.gallery-main-image,
+.gallery-side-image {
+  border: 2px solid #FFD700;
+  box-shadow: 
+    0 4px 20px rgba(255, 215, 0, 0.15),
+    0 0 0 1px rgba(255, 215, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+.gallery-main-image::before,
+.gallery-side-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.gallery-main-image:hover::before,
+.gallery-side-image:hover::before {
+  opacity: 1;
+}
+
+.gallery-main-image:hover,
+.gallery-side-image:hover {
+  border-color: #FFA500;
+  box-shadow: 
+    0 8px 30px rgba(255, 215, 0, 0.4),
+    0 0 0 2px rgba(255, 215, 0, 0.6),
+    0 0 40px rgba(255, 215, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Premium Gallery Title */
+#gallery h2 {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+  position: relative;
+}
+
+/* Removed the line under gallery title */
+
+/* Gallery Layout - Exact match to photo */
+#gallery .grid {
+  gap: 2rem; /* 32px gap between main and side images */
+}
+
+#gallery .grid .grid {
+  gap: 1rem; /* 16px gap between 2x2 grid items */
+}
+
+/* Gallery title styling to match other sections */
+#gallery h2 {
+  font-size: 2.25rem; /* Same as other section titles */
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+#gallery p {
+  font-size: 1.125rem;
+  color: #D1D5DB;
+  margin-bottom: 0;
+}
+
+/* Responsive gallery adjustments */
+@media (max-width: 1024px) {
+  .gallery-main-image {
+    margin-bottom: 2rem;
+  }
+  
+  .gallery-side-image {
+    margin-bottom: 1.5rem;
+  }
+  
+  #gallery h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery-main-image:hover,
+  .gallery-side-image:hover {
+    transform: none;
+  }
+  
+  .gallery-main-image,
+  .gallery-side-image {
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+  }
+  
+  #gallery h2 {
+    font-size: 1.875rem;
+  }
+}
+
+/* Why Choose Us Section Styles */
+#why-us {
+  background: #121212;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Right column should fill full height */
+.why-choose-right {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+#why-us::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.02) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Why Choose Us Items */
+.why-choose-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Fix for existing flex layout */
+.flex.items-start.space-x-4 {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Why Choose Us Icons */
+.why-choose-icon {
+  width: 48px;
+  height: 48px;
+  background: #FFD700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+  font-size: 20px;
+  font-weight: bold;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.why-choose-icon:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+}
+
+/* Why Choose Us Text */
+.why-choose-text {
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.3;
+  margin: 0;
+  flex: 1;
+}
+
+/* Perfect alignment for h3 in why-choose section */
+#why-us h3 {
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.3;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  height: 48px; /* Same height as icon */
+}
+
+/* Why Choose Us Text Styling */
+#why-us h2 {
+  color: #FFFFFF;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 3rem;
+}
+
+#why-us h3 {
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.3;
+  margin: 0;
+}
+
+/* Parallax Container */
+.parallax-container {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.parallax-image {
+  position: absolute;
+  top: -30%;
+  left: 0;
+  width: 100%;
+  height: 160%;
+  object-fit: cover;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  display: block;
+}
+
+/* Fallback when image fails to load */
+.parallax-image:not([src]),
+.parallax-image[src=""] {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.parallax-image:not([src])::after,
+.parallax-image[src=""]::after {
+  content: 'Изображение загружается...';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #000;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.parallax-image::before {
+  content: 'Изображение загружается...';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #000;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  z-index: 1;
+}
+
+.parallax-image[src]::before {
+  display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  #why-us .grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .why-choose-right {
+    height: 60vh;
+  }
+  
+  .parallax-container {
+    height: 100%;
+  }
+  
+  #why-us h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  #why-us {
+    padding: 4rem 0;
+    min-height: auto;
+  }
+  
+  .why-choose-right {
+    height: 50vh;
+  }
+  
+  .parallax-container {
+    height: 100%;
+  }
+  
+  #why-us h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .why-choose-text {
+    font-size: 1.125rem;
+  }
+  
+  #why-us h3 {
+    font-size: 1.125rem;
+    height: 40px; /* Match mobile icon height */
+  }
+  
+  .why-choose-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+  
+  #why-us .space-y-8 > * + * {
+    margin-top: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .parallax-container {
+    height: 250px;
+  }
+  
+  #why-us h2 {
+    font-size: 1.75rem;
+  }
+  
+  .why-choose-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+  }
 }
