@@ -559,7 +559,7 @@
 /* Hero Background - Desktop */
 .hero-bg {
   background-color: #1A1A1A;
-  background-image: url('./img/fon2.png');
+  background-image: url('./media/backgrounds/fon2.png');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
