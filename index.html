@@ -531,12 +531,6 @@
   <!-- GALLERY SECTION -->
   <section id="gallery" class="py-20 bg-black">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <!-- Section Title -->
-      <div class="text-center mb-16">
-        <h2 class="text-4xl font-bold mb-6">
-          <span class="text-primary">Галерея</span>
-        </h2>
-      </div>
 
       <!-- Gallery Grid - Exactly as in the photo -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
@@ -1041,8 +1035,8 @@
       <div class="p-6 sm:p-8 md:p-10">
         <div class="flex items-center justify-between mb-8 sm:mb-10">
           <h3 class="text-xl sm:text-2xl font-light text-white text-luxury-display">Запросить расчет стоимости</h3>
-          <button id="closeModal" class="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center hover:bg-primary/10 transition-luxury rounded-full flex-shrink-0">
-            <i class="ri-close-line text-lg sm:text-xl text-gray-400"></i>
+          <button id="closeModal" class="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center hover:bg-primary/10 transition-luxury rounded-full flex-shrink-0 text-gray-400 hover:text-white" type="button" title="Закрыть" onclick="event.stopPropagation(); forceCloseModal(); return false;">
+            <span class="text-xl sm:text-2xl font-bold">×</span>
           </button>
         </div>
         <div class="space-y-4 sm:space-y-6">
@@ -1078,6 +1072,39 @@
 
   <!-- JS -->
   <script src="script.js"></script>
+  <script>
+    // Test modal functions
+    console.log('Modal functions loaded:', typeof closeModal, typeof openModal);
+    
+    // Simple close function that definitely works
+    function forceCloseModal() {
+      const modal = document.getElementById('orderModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+        console.log('Modal closed by force function');
+      }
+    }
+    
+    // Make it globally available
+    window.forceCloseModal = forceCloseModal;
+    
+    // Additional test for close button
+    document.addEventListener('DOMContentLoaded', function() {
+      const closeBtn = document.getElementById('closeModal');
+      console.log('Close button found:', closeBtn);
+      if (closeBtn) {
+        console.log('Close button onclick:', closeBtn.onclick);
+        // Add direct event listener as backup
+        closeBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('Direct close button click');
+          forceCloseModal();
+        });
+      }
+    });
+  </script>
   <script id="burger-functionality">
     document.addEventListener('DOMContentLoaded', function() {
       const burgerToggle = document.getElementById('burgerToggle');

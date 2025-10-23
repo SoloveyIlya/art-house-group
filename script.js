@@ -74,34 +74,80 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
   
+  // Global modal functions
+  function openModal() {
+    const modal = document.getElementById('orderModal');
+    if (modal) {
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+  
+  function closeModal() {
+    const modal = document.getElementById('orderModal');
+    if (modal) {
+      modal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+  }
+  
+  // Make functions globally available
+  window.openModal = openModal;
+  window.closeModal = closeModal;
+
   // Modal
   document.addEventListener('DOMContentLoaded', function () {
     const modal = document.getElementById('orderModal');
     const closeModalBtn = document.getElementById('closeModal');
   
-    function openModal() {
-      modal.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    }
-  
-    function closeModalFunc() {
-      modal.classList.add('hidden');
-      document.body.style.overflow = 'auto';
-    }
-  
+    // Open modal buttons
     document.querySelectorAll('button').forEach(button => {
       if (
         button.textContent.includes('Получить консультацию') ||
         button.textContent.includes('Запросить детали') ||
         button.textContent.includes('Получить расчет')
       ) {
-        button.addEventListener('click', openModal);
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          openModal();
+        });
       }
     });
   
-    closeModalBtn.addEventListener('click', closeModalFunc);
-    modal.addEventListener('click', e => {
-      if (e.target === modal) closeModalFunc();
+    // Close modal button - multiple approaches for reliability
+    if (closeModalBtn) {
+      closeModalBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        closeModal();
+      });
+    }
+    
+    // Event delegation for close button
+    document.addEventListener('click', function(e) {
+      if (e.target && (e.target.id === 'closeModal' || e.target.closest('#closeModal'))) {
+        e.preventDefault();
+        e.stopPropagation();
+        closeModal();
+      }
+    });
+    
+    // Close modal on background click
+    if (modal) {
+      modal.addEventListener('click', function(e) {
+        // Only close if clicking on the modal background, not on the modal content
+        if (e.target === modal) {
+          e.stopPropagation();
+          closeModal();
+        }
+      });
+    }
+    
+    // Close modal on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+        closeModal();
+      }
     });
   });
   
@@ -262,6 +308,29 @@ document.addEventListener('DOMContentLoaded', function () {
     
     // Set initial cursor
     sliderContainer.style.cursor = 'grab';
+    
+    // Touch events for mobile swipe
+    let startTouchX = 0;
+    let startScrollLeft = 0;
+    let isScrolling = false;
+
+    sliderContainer.addEventListener('touchstart', (e) => {
+      startTouchX = e.touches[0].pageX;
+      startScrollLeft = sliderContainer.scrollLeft;
+      isScrolling = true;
+    }, { passive: true });
+
+    sliderContainer.addEventListener('touchmove', (e) => {
+      if (!isScrolling) return;
+      e.preventDefault();
+      const touchX = e.touches[0].pageX;
+      const walk = (startTouchX - touchX) * 2;
+      sliderContainer.scrollLeft = startScrollLeft + walk;
+    }, { passive: false });
+
+    sliderContainer.addEventListener('touchend', () => {
+      isScrolling = false;
+    }, { passive: true });
   }
 });
 

@@ -1191,6 +1191,24 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1990px) and (min-width: 1025px) {
+  .why-choose-left {
+    width: 45vw;
+    padding: 2rem 2rem 2rem 0.5rem;
+    background: transparent;
+  }
+  
+  .why-choose-right {
+    width: 55vw;
+  }
+  
+  #why-us h2 {
+    font-size: 3rem;
+    margin-bottom: 2.5rem;
+    line-height: 1.1;
+  }
+}
+
 @media (max-width: 1024px) {
   .why-choose-left {
     width: 100vw;
@@ -1752,4 +1770,40 @@ footer .animate-pulse {
 @keyframes heartbeat {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.1); }
+}
+
+/* Modal Close Button */
+#closeModal {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  transition: all 0.3s ease;
+  border: none;
+  outline: none;
+  background: transparent;
+  z-index: 10;
+  position: relative;
+}
+
+#closeModal:hover {
+  background-color: rgba(255, 215, 0, 0.2) !important;
+  transform: scale(1.1);
+  color: white !important;
+}
+
+#closeModal:active {
+  transform: scale(0.95);
+}
+
+#closeModal:focus {
+  outline: 2px solid #FFD700;
+  outline-offset: 2px;
+}
+
+#closeModal span {
+  pointer-events: none;
+  line-height: 1;
+  display: block;
 }
