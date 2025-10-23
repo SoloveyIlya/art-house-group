@@ -1,3 +1,17 @@
+// Smooth Scroll Function
+function smoothScrollTo(targetId) {
+  const targetElement = document.getElementById(targetId);
+  if (targetElement) {
+    const headerHeight = 80; // Height of fixed header
+    const targetPosition = targetElement.offsetTop - headerHeight;
+    
+    window.scrollTo({
+      top: targetPosition,
+      behavior: 'smooth'
+    });
+  }
+}
+
 // FAQ
 document.addEventListener('DOMContentLoaded', function () {
     const faqItems = document.querySelectorAll('.faq-item');
@@ -224,6 +238,7 @@ document.addEventListener('DOMContentLoaded', function () {
   window.openProductModal = openProductModal;
   window.closeProductModal = closeProductModal;
   window.forceCloseProductModal = forceCloseProductModal;
+  window.smoothScrollTo = smoothScrollTo;
 
   // Modal
   document.addEventListener('DOMContentLoaded', function () {
@@ -575,5 +590,33 @@ document.addEventListener('DOMContentLoaded', function() {
   } else {
     console.log('Fixed image not found!');
   }
+});
+
+// Smooth Scroll Navigation
+document.addEventListener('DOMContentLoaded', function() {
+  // Handle all navigation links
+  const navLinks = document.querySelectorAll('a[href^="#"]');
+  
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      const targetId = this.getAttribute('href').substring(1);
+      
+      if (targetId) {
+        // Close mobile menu if open
+        const mobileNav = document.getElementById('mobileNav');
+        const burgerToggle = document.getElementById('burgerToggle');
+        
+        if (mobileNav && mobileNav.classList.contains('open')) {
+          mobileNav.classList.remove('open');
+          burgerToggle.classList.remove('open');
+        }
+        
+        // Smooth scroll to target
+        smoothScrollTo(targetId);
+      }
+    });
+  });
 });
   
