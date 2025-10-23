@@ -91,14 +91,146 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
   
+  // Product modal functions
+  function openProductModal(productId) {
+    const modal = document.getElementById('productModal');
+    if (modal) {
+      // Update modal content based on product
+      updateProductModalContent(productId);
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+  
+  function closeProductModal() {
+    const modal = document.getElementById('productModal');
+    if (modal) {
+      modal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+  }
+  
+  function forceCloseProductModal() {
+    const modal = document.getElementById('productModal');
+    if (modal) {
+      modal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+      console.log('Product modal closed by force function');
+    }
+  }
+  
+  function updateProductModalContent(productId) {
+    // Product data - можно расширить для разных продуктов
+    const productData = {
+      'g30': {
+        title: 'Space Capsule House G30',
+        price: '$14,200',
+        description: 'Модель G30 из серии Galaxy предлагает современное компактное решение для жизни. Этот модульный дом сочетает в себе функциональность, комфорт и стиль.',
+        image: './media/catalog/g30.png.webp',
+        characteristics: [
+          { 
+            label: 'ПЛОЩАДЬ', 
+            value: '30 м²',
+            icon: '<path d="M3 3v18h18V3H3zm16 16H5V5h14v14z"/>'
+          },
+          { 
+            label: 'ВМЕСТИМОСТЬ', 
+            value: '2-4 чел.',
+            icon: '<path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A1.5 1.5 0 0 0 18.54 8H16c-.8 0-1.54.37-2.01.99L12 11l-1.99-2.01A2.5 2.5 0 0 0 8 8H5.46c-.8 0-1.54.37-2.01.99L1 15.5V22h2v-6h2.5l2.54 7.63A1.5 1.5 0 0 0 9.46 24H11c.8 0 1.54-.37 2.01-.99L15 21l1.99 2.01A2.5 2.5 0 0 0 19 24h1.54c.8 0 1.54-.37 2.01-.99L25 15.5V22h2v-6h-2V4z"/>'
+          },
+          { 
+            label: 'МОЩНОСТЬ', 
+            value: '5 кВт',
+            icon: '<path d="M7 2v11h3v9l7-12h-4l4-8z"/>'
+          },
+          { 
+            label: 'РАЗМЕРЫ', 
+            value: '6.0×5.0×2.8 м',
+            icon: '<path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>'
+          },
+          { 
+            label: 'ОБЩИЙ ВЕС НЕТТО', 
+            value: '2.5 тонны',
+            icon: '<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>'
+          }
+        ]
+      }
+    };
+    
+    const product = productData[productId] || productData['g30'];
+    
+    // Update modal content
+    const titleElement = document.getElementById('productModalTitle');
+    const priceElement = document.getElementById('productModalPrice');
+    const descriptionElement = document.getElementById('productModalDescription');
+    const imageElement = document.getElementById('productModalImage');
+    const characteristicsElement = document.getElementById('productModalCharacteristics');
+    
+    if (titleElement) titleElement.textContent = product.title;
+    if (priceElement) priceElement.textContent = product.price;
+    if (descriptionElement) descriptionElement.textContent = product.description;
+    if (imageElement) {
+      imageElement.src = product.image;
+      imageElement.alt = product.title;
+    }
+    
+    if (characteristicsElement) {
+      const characteristics = product.characteristics;
+      let html = '';
+      
+      // Первые 4 характеристики
+      for (let i = 0; i < 4; i++) {
+        const char = characteristics[i];
+        html += `
+          <div class="bg-gray-800 rounded-xl p-4 border border-gray-700">
+            <div class="flex items-center mb-3">
+              <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center mr-3">
+                <svg class="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
+                  ${char.icon}
+                </svg>
+              </div>
+              <span class="text-gray-400 text-sm font-medium">${char.label}</span>
+            </div>
+            <div class="text-white text-xl font-bold">${char.value}</div>
+          </div>
+        `;
+      }
+      
+      // Последняя характеристика (Общий вес нетто) - центрированная
+      if (characteristics[4]) {
+        const char = characteristics[4];
+        html += `
+          <div class="bg-gray-800 rounded-xl p-4 border border-gray-700 col-span-2 mx-auto max-w-xs">
+            <div class="flex items-center mb-3">
+              <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center mr-3">
+                <svg class="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
+                  ${char.icon}
+                </svg>
+              </div>
+              <span class="text-gray-400 text-sm font-medium">${char.label}</span>
+            </div>
+            <div class="text-white text-xl font-bold">${char.value}</div>
+          </div>
+        `;
+      }
+      
+      characteristicsElement.innerHTML = html;
+    }
+  }
+  
   // Make functions globally available
   window.openModal = openModal;
   window.closeModal = closeModal;
+  window.openProductModal = openProductModal;
+  window.closeProductModal = closeProductModal;
+  window.forceCloseProductModal = forceCloseProductModal;
 
   // Modal
   document.addEventListener('DOMContentLoaded', function () {
     const modal = document.getElementById('orderModal');
     const closeModalBtn = document.getElementById('closeModal');
+    const productModal = document.getElementById('productModal');
+    const closeProductModalBtn = document.getElementById('closeProductModal');
   
     // Open modal buttons
     document.querySelectorAll('button').forEach(button => {
@@ -123,12 +255,48 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
     
-    // Event delegation for close button
+    // Close product modal button
+    if (closeProductModalBtn) {
+      closeProductModalBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Product modal close button clicked');
+        closeProductModal();
+      });
+      
+      // Add multiple event listeners for reliability
+      closeProductModalBtn.addEventListener('mousedown', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Product modal close button mousedown');
+        closeProductModal();
+      });
+    }
+    
+    // Event delegation for close buttons
     document.addEventListener('click', function(e) {
       if (e.target && (e.target.id === 'closeModal' || e.target.closest('#closeModal'))) {
         e.preventDefault();
         e.stopPropagation();
+        console.log('Event delegation: closeModal clicked');
         closeModal();
+      }
+      if (e.target && (e.target.id === 'closeProductModal' || e.target.closest('#closeProductModal'))) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Event delegation: closeProductModal clicked');
+        closeProductModal();
+      }
+    });
+    
+    // Additional event delegation for product modal close
+    document.addEventListener('click', function(e) {
+      // Check if clicked element is the close button or its children
+      if (e.target && e.target.closest('#closeProductModal')) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Additional delegation: product modal close');
+        closeProductModal();
       }
     });
     
@@ -143,12 +311,46 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
     
+    // Close product modal on background click
+    if (productModal) {
+      productModal.addEventListener('click', function(e) {
+        // Only close if clicking on the modal background, not on the modal content
+        if (e.target === productModal) {
+          e.stopPropagation();
+          closeProductModal();
+        }
+      });
+    }
+    
     // Close modal on Escape key
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
-        closeModal();
+      if (e.key === 'Escape') {
+        if (modal && !modal.classList.contains('hidden')) {
+          closeModal();
+        }
+        if (productModal && !productModal.classList.contains('hidden')) {
+          closeProductModal();
+        }
       }
     });
+    
+    // Additional simple approach - direct button access
+    setTimeout(() => {
+      const closeProductBtn = document.getElementById('closeProductModal');
+      if (closeProductBtn) {
+        console.log('Setting up direct close button access');
+        closeProductBtn.onclick = function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('Direct onclick: product modal close');
+          const modal = document.getElementById('productModal');
+          if (modal) {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+          }
+        };
+      }
+    }, 100);
   });
   
   // Burger menu

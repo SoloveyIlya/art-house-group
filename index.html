@@ -321,13 +321,14 @@
               <h3 class="text-2xl font-bold">Space Capsule House G30</h3>
               <span class="text-primary text-2xl font-bold ml-2">$14,200</span>
             </div>
-            <p class="text-gray-400 mb-4">Модель G30 из серии Galaxy предлагает современное компактное решение для жизни.</p>
             <div class="flex items-center justify-end mb-4">
               <span class="text-sm text-gray-400">доставка 30 дней</span>
             </div>
-            <button class="w-full bg-primary text-black py-3 rounded-button font-semibold hover:bg-secondary transition-colors whitespace-nowrap">
-              Запросить детали
-            </button>
+            <div class="flex items-center justify-center">
+              <a href="#" class="text-primary hover:text-secondary transition-colors text-lg font-medium" onclick="openProductModal('g30'); return false;">
+                Узнать больше <span class="inline-block" style="transform: translateY(1px);">→</span>
+              </a>
+            </div>
           </div>
         </div>
 
@@ -339,13 +340,14 @@
               <h3 class="text-2xl font-bold">Space Capsule House G30</h3>
               <span class="text-primary text-2xl font-bold ml-2">$14,200</span>
             </div>
-            <p class="text-gray-400 mb-4">Модель G30 из серии Galaxy предлагает современное компактное решение для жизни.</p>
             <div class="flex items-center justify-end mb-4">
               <span class="text-sm text-gray-400">доставка 30 дней</span>
             </div>
-            <button class="w-full bg-primary text-black py-3 rounded-button font-semibold hover:bg-secondary transition-colors whitespace-nowrap">
-              Запросить детали
-            </button>
+            <div class="flex items-center justify-center">
+              <a href="#" class="text-primary hover:text-secondary transition-colors text-lg font-medium" onclick="openProductModal('g30'); return false;">
+                Узнать больше <span class="inline-block" style="transform: translateY(1px);">→</span>
+              </a>
+            </div>
           </div>
         </div>
 
@@ -357,13 +359,14 @@
               <h3 class="text-2xl font-bold">Space Capsule House G30</h3>
               <span class="text-primary text-2xl font-bold ml-2">$14,200</span>
             </div>
-            <p class="text-gray-400 mb-4">Модель G30 из серии Galaxy предлагает современное компактное решение для жизни.</p>
             <div class="flex items-center justify-end mb-4">
               <span class="text-sm text-gray-400">доставка 30 дней</span>
             </div>
-            <button class="w-full bg-primary text-black py-3 rounded-button font-semibold hover:bg-secondary transition-colors whitespace-nowrap">
-              Запросить детали
-            </button>
+            <div class="flex items-center justify-center">
+              <a href="#" class="text-primary hover:text-secondary transition-colors text-lg font-medium" onclick="openProductModal('g30'); return false;">
+                Узнать больше <span class="inline-block" style="transform: translateY(1px);">→</span>
+              </a>
+            </div>
           </div>
         </div>
 
@@ -375,13 +378,14 @@
               <h3 class="text-2xl font-bold">Space Capsule House G30</h3>
               <span class="text-primary text-2xl font-bold ml-2">$14,200</span>
             </div>
-            <p class="text-gray-400 mb-4">Модель G30 из серии Galaxy предлагает современное компактное решение для жизни.</p>
             <div class="flex items-center justify-end mb-4">
               <span class="text-sm text-gray-400">доставка 30 дней</span>
             </div>
-            <button class="w-full bg-primary text-black py-3 rounded-button font-semibold hover:bg-secondary transition-colors whitespace-nowrap">
-              Запросить детали
-            </button>
+            <div class="flex items-center justify-center">
+              <a href="#" class="text-primary hover:text-secondary transition-colors text-lg font-medium" onclick="openProductModal('g30'); return false;">
+                Узнать больше <span class="inline-block" style="transform: translateY(1px);">→</span>
+              </a>
+            </div>
           </div>
         </div>
 
@@ -393,13 +397,14 @@
               <h3 class="text-2xl font-bold">Space Capsule House G30</h3>
               <span class="text-primary text-2xl font-bold ml-2">$14,200</span>
             </div>
-            <p class="text-gray-400 mb-4">Модель G30 из серии Galaxy предлагает современное компактное решение для жизни.</p>
             <div class="flex items-center justify-end mb-4">
               <span class="text-sm text-gray-400">доставка 30 дней</span>
             </div>
-            <button class="w-full bg-primary text-black py-3 rounded-button font-semibold hover:bg-secondary transition-colors whitespace-nowrap">
-              Запросить детали
-            </button>
+            <div class="flex items-center justify-center">
+              <a href="#" class="text-primary hover:text-secondary transition-colors text-lg font-medium" onclick="openProductModal('g30'); return false;">
+                Узнать больше <span class="inline-block" style="transform: translateY(1px);">→</span>
+              </a>
+            </div>
           </div>
         </div>
 
@@ -1097,11 +1102,113 @@
     </div>
   </div>
 
+  <!-- Product Details Modal -->
+  <div id="productModal" class="fixed inset-0 bg-black/90 z-50 hidden flex items-center justify-center p-4 sm:p-6 backdrop-blur-luxury">
+    <div class="luxury-card max-w-2xl w-full max-h-[90vh] overflow-y-auto luxury-shadow-lg">
+      <div class="p-6 sm:p-8 md:p-10">
+        <div class="flex items-center justify-between mb-8 sm:mb-10">
+          <h3 class="text-xl sm:text-2xl font-light text-white text-luxury-display" id="productModalTitle">Space Capsule House G30</h3>
+          <button id="closeProductModal" class="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center hover:bg-primary/10 transition-luxury rounded-full flex-shrink-0 text-gray-400 hover:text-white" type="button" title="Закрыть" onclick="closeProductModalSimple()">
+            <span class="text-xl sm:text-2xl font-bold">×</span>
+          </button>
+        </div>
+        
+        <div class="space-y-6">
+          <!-- Product Image -->
+          <div class="relative overflow-hidden rounded-xl border-2 border-primary">
+            <img id="productModalImage" src="./media/catalog/g30.png.webp" alt="Space Capsule House G30" class="w-full h-64 object-cover">
+          </div>
+          
+          <div>
+            <h4 class="text-2xl font-bold text-primary mb-4" id="productModalPrice">$14,200</h4>
+            <h5 class="text-xl font-bold text-white mb-4">Описание</h5>
+            <p class="text-gray-300 text-lg leading-relaxed" id="productModalDescription">
+              Модель G30 из серии Galaxy предлагает современное компактное решение для жизни. 
+              Этот модульный дом сочетает в себе функциональность, комфорт и стиль.
+            </p>
+          </div>
+          
+          <!-- Characteristics -->
+          <div>
+            <h5 class="text-xl font-bold text-white mb-6">Характеристики</h5>
+            <div class="grid grid-cols-2 gap-4" id="productModalCharacteristics">
+              <!-- Площадь -->
+              <div class="bg-gray-800 rounded-xl p-4 border border-gray-700">
+                <div class="flex items-center mb-3">
+                  <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center mr-3">
+                    <svg class="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M3 3v18h18V3H3zm16 16H5V5h14v14z"/>
+                    </svg>
+                  </div>
+                  <span class="text-gray-400 text-sm font-medium">ПЛОЩАДЬ</span>
+                </div>
+                <div class="text-white text-xl font-bold">30 м²</div>
+              </div>
+              
+              <!-- Вместимость -->
+              <div class="bg-gray-800 rounded-xl p-4 border border-gray-700">
+                <div class="flex items-center mb-3">
+                  <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center mr-3">
+                    <svg class="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A1.5 1.5 0 0 0 18.54 8H16c-.8 0-1.54.37-2.01.99L12 11l-1.99-2.01A2.5 2.5 0 0 0 8 8H5.46c-.8 0-1.54.37-2.01.99L1 15.5V22h2v-6h2.5l2.54 7.63A1.5 1.5 0 0 0 9.46 24H11c.8 0 1.54-.37 2.01-.99L15 21l1.99 2.01A2.5 2.5 0 0 0 19 24h1.54c.8 0 1.54-.37 2.01-.99L25 15.5V22h2v-6h-2V4z"/>
+                    </svg>
+                  </div>
+                  <span class="text-gray-400 text-sm font-medium">ВМЕСТИМОСТЬ</span>
+                </div>
+                <div class="text-white text-xl font-bold">2-4 чел.</div>
+              </div>
+              
+              <!-- Мощность -->
+              <div class="bg-gray-800 rounded-xl p-4 border border-gray-700">
+                <div class="flex items-center mb-3">
+                  <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center mr-3">
+                    <svg class="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M7 2v11h3v9l7-12h-4l4-8z"/>
+                    </svg>
+                  </div>
+                  <span class="text-gray-400 text-sm font-medium">МОЩНОСТЬ</span>
+                </div>
+                <div class="text-white text-xl font-bold">5 кВт</div>
+              </div>
+              
+              <!-- Размеры -->
+              <div class="bg-gray-800 rounded-xl p-4 border border-gray-700">
+                <div class="flex items-center mb-3">
+                  <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center mr-3">
+                    <svg class="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                    </svg>
+                  </div>
+                  <span class="text-gray-400 text-sm font-medium">РАЗМЕРЫ</span>
+                </div>
+                <div class="text-white text-xl font-bold">6.0×5.0×2.8 м</div>
+              </div>
+              
+              <!-- Общий вес нетто -->
+              <div class="bg-gray-800 rounded-xl p-4 border border-gray-700 col-span-2 mx-auto max-w-xs">
+                <div class="flex items-center mb-3">
+                  <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center mr-3">
+                    <svg class="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                    </svg>
+                  </div>
+                  <span class="text-gray-400 text-sm font-medium">ОБЩИЙ ВЕС НЕТТО</span>
+                </div>
+                <div class="text-white text-xl font-bold">2.5 тонны</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- JS -->
   <script src="script.js"></script>
   <script>
     // Test modal functions
     console.log('Modal functions loaded:', typeof closeModal, typeof openModal);
+    console.log('Product modal functions loaded:', typeof openProductModal, typeof closeProductModal);
     
     // Simple close function that definitely works
     function forceCloseModal() {
@@ -1113,13 +1220,39 @@
       }
     }
     
+    // Force close product modal function
+    function forceCloseProductModal() {
+      const modal = document.getElementById('productModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+        console.log('Product modal closed by force function');
+      }
+    }
+    
+    // Simple close function for product modal
+    function closeProductModalSimple() {
+      console.log('closeProductModalSimple called');
+      const modal = document.getElementById('productModal');
+      if (modal) {
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+        console.log('Product modal closed by simple function');
+      }
+    }
+    
     // Make it globally available
     window.forceCloseModal = forceCloseModal;
+    window.forceCloseProductModal = forceCloseProductModal;
+    window.closeProductModalSimple = closeProductModalSimple;
     
-    // Additional test for close button
+    // Additional test for close buttons
     document.addEventListener('DOMContentLoaded', function() {
       const closeBtn = document.getElementById('closeModal');
+      const closeProductBtn = document.getElementById('closeProductModal');
       console.log('Close button found:', closeBtn);
+      console.log('Close product button found:', closeProductBtn);
+      
       if (closeBtn) {
         console.log('Close button onclick:', closeBtn.onclick);
         // Add direct event listener as backup
@@ -1129,6 +1262,52 @@
           console.log('Direct close button click');
           forceCloseModal();
         });
+      }
+      
+      if (closeProductBtn) {
+        // Add direct event listener as backup for product modal
+        closeProductBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('Direct close product button click');
+          closeProductModalSimple();
+        });
+        
+        // Add mousedown event as additional backup
+        closeProductBtn.addEventListener('mousedown', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('Direct close product button mousedown');
+          closeProductModalSimple();
+        });
+        
+        // Add touchstart for mobile
+        closeProductBtn.addEventListener('touchstart', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('Direct close product button touchstart');
+          closeProductModalSimple();
+        });
+      }
+    });
+    
+    // Additional event delegation for product modal close
+    document.addEventListener('click', function(e) {
+      if (e.target && e.target.id === 'closeProductModal') {
+        console.log('Event delegation: product modal close clicked');
+        closeProductModalSimple();
+      }
+      if (e.target && e.target.closest('#closeProductModal')) {
+        console.log('Event delegation: product modal close (closest)');
+        closeProductModalSimple();
+      }
+    });
+    
+    // Additional event delegation for mousedown
+    document.addEventListener('mousedown', function(e) {
+      if (e.target && e.target.id === 'closeProductModal') {
+        console.log('Event delegation: product modal close mousedown');
+        closeProductModalSimple();
       }
     });
   </script>
