@@ -769,6 +769,14 @@ section[id] {
   flex: 0 0 auto;
   width: 100%;
   max-width: 400px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.catalog-card:hover {
+  border-color: #FFD700;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(255, 215, 0, 0.2);
 }
 
 @media (min-width: 640px) {
@@ -924,13 +932,14 @@ section[id] {
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   height: fit-content;
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 165, 0, 0.05));
+  border: 2px solid transparent;
   border-radius: 8px;
 }
 
 .gallery-main-image:hover {
   transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(255, 215, 0, 0.3), 0 0 0 1px rgba(255, 215, 0, 0.5);
+  border-color: #FFD700;
+  box-shadow: 0 20px 40px rgba(255, 215, 0, 0.3);
 }
 
 .gallery-side-image {
@@ -938,13 +947,14 @@ section[id] {
   position: relative;
   cursor: pointer;
   height: fit-content;
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.08), rgba(255, 165, 0, 0.03));
+  border: 2px solid transparent;
   border-radius: 8px;
 }
 
 .gallery-side-image:hover {
   transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 15px 35px rgba(255, 215, 0, 0.4), 0 0 0 1px rgba(255, 215, 0, 0.6);
+  border-color: #FFD700;
+  box-shadow: 0 15px 35px rgba(255, 215, 0, 0.4);
   z-index: 20;
 }
 
@@ -960,45 +970,21 @@ section[id] {
   filter: brightness(1.1) contrast(1.05);
 }
 
-/* Premium Gallery border effects */
-.gallery-main-image,
-.gallery-side-image {
-  border: 2px solid #FFD700;
-  box-shadow: 
-    0 4px 20px rgba(255, 215, 0, 0.15),
-    0 0 0 1px rgba(255, 215, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+/* Gallery border effects are now handled in the main gallery styles above */
+
+/* House Structure Section */
+.house-structure-image {
+  border: 2px solid transparent;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
+  overflow: hidden;
+  border-radius: 16px;
 }
 
-.gallery-main-image::before,
-.gallery-side-image::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), transparent);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-  border-radius: inherit;
-}
-
-.gallery-main-image:hover::before,
-.gallery-side-image:hover::before {
-  opacity: 1;
-}
-
-.gallery-main-image:hover,
-.gallery-side-image:hover {
-  border-color: #FFA500;
-  box-shadow: 
-    0 8px 30px rgba(255, 215, 0, 0.4),
-    0 0 0 2px rgba(255, 215, 0, 0.6),
-    0 0 40px rgba(255, 215, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+.house-structure-image:hover {
+  border-color: #FFD700;
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(255, 215, 0, 0.3);
 }
 
 /* Premium Gallery Title */
@@ -1782,38 +1768,269 @@ footer .animate-pulse {
   50% { transform: scale(1.1); }
 }
 
-/* Modal Close Button */
-#closeModal {
-  cursor: pointer;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  transition: all 0.3s ease;
-  border: none;
-  outline: none;
-  background: transparent;
-  z-index: 10;
-  position: relative;
+/* ========================================
+   ГАРАНТИРОВАННЫЕ СТИЛИ ДЛЯ МОДАЛЬНЫХ ОКОН
+   ======================================== */
+
+/* Базовые стили для всех модальных окон */
+[id$="Modal"] {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(0, 0, 0, 0.9) !important;
+  z-index: 9999 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 1rem !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
 }
 
-#closeModal:hover {
-  background-color: rgba(255, 215, 0, 0.2) !important;
-  transform: scale(1.1);
+/* Скрытие модальных окон */
+[id$="Modal"].hidden {
+  display: none !important;
+}
+
+/* Контейнер контента модального окна */
+[id$="Modal"] .luxury-card {
+  position: relative !important;
+  max-width: 90vw !important;
+  max-height: 90vh !important;
+  overflow-y: auto !important;
+  background: rgba(0, 0, 0, 0.8) !important;
+  border: 1px solid rgba(255, 215, 0, 0.3) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Кнопки закрытия - Позиционируем относительно модального окна */
+[id$="Modal"] .luxury-card {
+  position: relative !important;
+}
+
+/* Кнопки закрытия с максимальной специфичностью */
+[id$="Modal"] .luxury-card button[id^="close"] {
+  position: absolute !important;
+  top: 20px !important;
+  right: 20px !important;
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  background: rgba(255, 215, 0, 0.1) !important;
+  border: 1px solid rgba(255, 215, 0, 0.3) !important;
+  border-radius: 50% !important;
+  color: #FFD700 !important;
+  font-size: 1.5rem !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  z-index: 1000 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Дублирующие селекторы для гарантии */
+#closeModal,
+#closeProductModal,
+#closeGalleryModal,
+#closeStructureModal {
+  position: absolute !important;
+  top: 20px !important;
+  right: 20px !important;
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  background: rgba(255, 215, 0, 0.1) !important;
+  border: 1px solid rgba(255, 215, 0, 0.3) !important;
+  border-radius: 50% !important;
+  color: #FFD700 !important;
+  font-size: 1.5rem !important;
+  font-weight: bold !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  z-index: 1000 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Hover стили с максимальной специфичностью */
+[id$="Modal"] .luxury-card button[id^="close"]:hover,
+#closeModal:hover,
+#closeProductModal:hover,
+#closeGalleryModal:hover,
+#closeStructureModal:hover {
+  background: rgba(255, 215, 0, 0.2) !important;
+  border-color: #FFD700 !important;
+  transform: scale(1.1) !important;
   color: white !important;
 }
 
-#closeModal:active {
-  transform: scale(0.95);
+/* Active стили с максимальной специфичностью */
+[id$="Modal"] .luxury-card button[id^="close"]:active,
+#closeModal:active,
+#closeProductModal:active,
+#closeGalleryModal:active,
+#closeStructureModal:active {
+  transform: scale(0.95) !important;
 }
 
-#closeModal:focus {
-  outline: 2px solid #FFD700;
-  outline-offset: 2px;
+
+/* Заголовки модальных окон */
+[id$="Modal"] h3 {
+  color: white !important;
+  font-size: 1.5rem !important;
+  font-weight: 300 !important;
+  margin: 0 !important;
+  padding-right: 3rem !important;
 }
 
-#closeModal span {
-  pointer-events: none;
-  line-height: 1;
-  display: block;
+/* Анимации */
+[id$="Modal"] {
+  animation: modalFadeIn 0.3s ease-out !important;
+}
+
+[id$="Modal"].hidden {
+  animation: modalFadeOut 0.3s ease-in !important;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes modalFadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+/* Блокировка скролла */
+body.modal-open {
+  overflow: hidden !important;
+  height: 100vh !important;
+}
+
+/* Специфичные стили для разных модальных окон */
+#orderModal .luxury-card {
+  max-width: 600px !important;
+}
+
+#productModal .luxury-card {
+  max-width: 800px !important;
+}
+
+#galleryModal .luxury-card {
+  max-width: 1000px !important;
+}
+
+#structureModal .luxury-card {
+  max-width: 1000px !important;
+}
+
+/* Навигация галереи */
+#galleryPrevBtn,
+#galleryNextBtn {
+  background: #FFD700 !important;
+  color: black !important;
+  border: none !important;
+  border-radius: 50% !important;
+  width: 3rem !important;
+  height: 3rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  font-size: 1.5rem !important;
+  z-index: 10 !important;
+  position: relative !important;
+  min-width: 3rem !important;
+  min-height: 3rem !important;
+}
+
+#galleryPrevBtn:hover,
+#galleryNextBtn:hover {
+  background: #FFA500 !important;
+  transform: scale(1.1) !important;
+}
+
+/* Счетчик галереи */
+#galleryCounter {
+  color: white !important;
+  font-size: 1.2rem !important;
+  font-weight: 500 !important;
+  text-align: center !important;
+}
+
+/* Изображения в модальных окнах */
+[id$="Modal"] img {
+  max-width: 100% !important;
+  height: auto !important;
+  border-radius: 8px !important;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  [id$="Modal"] {
+    padding: 0.5rem !important;
+  }
+  
+  [id$="Modal"] .luxury-card {
+    max-width: 95vw !important;
+    max-height: 95vh !important;
+  }
+  
+  #closeModal,
+  #closeProductModal,
+  #closeGalleryModal,
+  #closeStructureModal {
+    top: 15px !important;
+    right: 15px !important;
+    width: 2rem !important;
+    height: 2rem !important;
+    font-size: 1.2rem !important;
+  }
+  
+  [id$="Modal"] h3 {
+    font-size: 1.2rem !important;
+    padding-right: 2.5rem !important;
+  }
+  
+  /* Мобильные стили для кнопок галереи */
+  #galleryPrevBtn,
+  #galleryNextBtn {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    min-width: 2.5rem !important;
+    min-height: 2.5rem !important;
+    font-size: 1.2rem !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+  
+  /* Увеличиваем область клика для мобильных */
+  #galleryPrevBtn::before,
+  #galleryNextBtn::before {
+    content: '';
+    position: absolute;
+    top: -0.5rem;
+    left: -0.5rem;
+    right: -0.5rem;
+    bottom: -0.5rem;
+    z-index: -1;
+  }
 }

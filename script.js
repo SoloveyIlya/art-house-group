@@ -88,51 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
   
-  // Global modal functions
-  function openModal() {
-    const modal = document.getElementById('orderModal');
-    if (modal) {
-      modal.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    }
-  }
-  
-  function closeModal() {
-    const modal = document.getElementById('orderModal');
-    if (modal) {
-      modal.classList.add('hidden');
-      document.body.style.overflow = 'auto';
-    }
-  }
-  
-  // Product modal functions
-  function openProductModal(productId) {
-    const modal = document.getElementById('productModal');
-    if (modal) {
-      // Update modal content based on product
-      updateProductModalContent(productId);
-      modal.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    }
-  }
-  
-  function closeProductModal() {
-    const modal = document.getElementById('productModal');
-    if (modal) {
-      modal.classList.add('hidden');
-      document.body.style.overflow = 'auto';
-    }
-  }
-  
-  function forceCloseProductModal() {
-    const modal = document.getElementById('productModal');
-    if (modal) {
-      modal.classList.add('hidden');
-      document.body.style.overflow = 'auto';
-      console.log('Product modal closed by force function');
-    }
-  }
-  
+
   function updateProductModalContent(productId) {
     // Product data - можно расширить для разных продуктов
     const productData = {
@@ -231,143 +187,276 @@ document.addEventListener('DOMContentLoaded', function () {
       characteristicsElement.innerHTML = html;
     }
   }
-  
+
   // Make functions globally available
-  window.openModal = openModal;
-  window.closeModal = closeModal;
-  window.openProductModal = openProductModal;
-  window.closeProductModal = closeProductModal;
-  window.forceCloseProductModal = forceCloseProductModal;
   window.smoothScrollTo = smoothScrollTo;
 
-  // Modal
-  document.addEventListener('DOMContentLoaded', function () {
-    const modal = document.getElementById('orderModal');
-    const closeModalBtn = document.getElementById('closeModal');
-    const productModal = document.getElementById('productModal');
-    const closeProductModalBtn = document.getElementById('closeProductModal');
+  // ========================================
+  // НОВАЯ ПРОСТАЯ СИСТЕМА МОДАЛЬНЫХ ОКОН
+  // ========================================
   
-    // Open modal buttons
-    document.querySelectorAll('button').forEach(button => {
-      if (
-        button.textContent.includes('Получить консультацию') ||
-        button.textContent.includes('Запросить детали') ||
-        button.textContent.includes('Получить расчет')
-      ) {
-        button.addEventListener('click', function(e) {
+  // Глобальная переменная для текущего модального окна
+  let activeModal = null;
+
+  // Основная функция открытия модального окна
+  function openModal(modalId) {
+    console.log('Opening modal:', modalId);
+    
+    // Закрываем все открытые модальные окна
+    closeAllModals();
+    
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      activeModal = modalId;
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      console.log('Modal opened successfully:', modalId);
+    } else {
+      console.error('Modal not found:', modalId);
+    }
+  }
+
+  // Основная функция закрытия модального окна
+  function closeModal(modalId) {
+    console.log('Closing modal:', modalId);
+    
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+      activeModal = null;
+      console.log('Modal closed successfully:', modalId);
+    }
+  }
+
+  // Закрыть все модальные окна
+  function closeAllModals() {
+    const modals = ['orderModal', 'productModal', 'galleryModal', 'structureModal'];
+    modals.forEach(modalId => {
+      const modal = document.getElementById(modalId);
+      if (modal && !modal.classList.contains('hidden')) {
+        closeModal(modalId);
+      }
+    });
+  }
+
+  // Обработчик клавиши Escape
+  function handleEscapeKey(event) {
+    if (event.key === 'Escape' && activeModal) {
+      closeModal(activeModal);
+    }
+  }
+
+  // Специфичные функции для разных типов модальных окон
+  function openOrderModal() {
+    openModal('orderModal');
+  }
+
+  function openProductModal(productId = 'g30') {
+    openModal('productModal');
+    // Обновляем контент продукта если нужно
+    if (productId) {
+      updateProductModalContent(productId);
+    }
+  }
+
+  function openGalleryModal(index = 0) {
+    openModal('galleryModal');
+    updateGalleryImage(index);
+  }
+
+  function openStructureModal() {
+    openModal('structureModal');
+  }
+
+  // Функции для галереи
+  let currentGalleryIndex = 0;
+  const galleryImages = [
+    './media/gallery/1photo.JPG',
+    './media/gallery/2phot.jpg', 
+    './media/gallery/3phot.jpg',
+    './media/gallery/4photo.jpg',
+    './media/gallery/5phot.jpg'
+  ];
+
+  function updateGalleryImage(index) {
+    currentGalleryIndex = index;
+    const image = document.getElementById('galleryModalImage');
+    const counter = document.getElementById('galleryCounter');
+    
+    if (image && galleryImages[currentGalleryIndex]) {
+      image.src = galleryImages[currentGalleryIndex];
+    }
+    
+    if (counter) {
+      counter.textContent = `${currentGalleryIndex + 1} / ${galleryImages.length}`;
+    }
+  }
+
+  function nextGalleryImage() {
+    currentGalleryIndex = (currentGalleryIndex + 1) % galleryImages.length;
+    updateGalleryImage(currentGalleryIndex);
+  }
+
+  function prevGalleryImage() {
+    currentGalleryIndex = (currentGalleryIndex - 1 + galleryImages.length) % galleryImages.length;
+    updateGalleryImage(currentGalleryIndex);
+  }
+
+  // Функция для перехода от продукта к заказу
+  function openOrderForm(productId) {
+    closeModal('productModal');
+    setTimeout(() => {
+      openOrderModal();
+      // Предзаполняем форму
+      const modelSelect = document.querySelector('select[name="model"]');
+      if (modelSelect) {
+        modelSelect.value = productId;
+      }
+    }, 100);
+  }
+
+  // Делаем функции глобально доступными
+  window.openModal = openModal;
+  window.closeModal = closeModal;
+  window.openOrderModal = openOrderModal;
+  window.openProductModal = openProductModal;
+  window.openGalleryModal = openGalleryModal;
+  window.openStructureModal = openStructureModal;
+  window.openOrderForm = openOrderForm;
+  window.nextGalleryImage = nextGalleryImage;
+  window.prevGalleryImage = prevGalleryImage;
+
+  // ========================================
+  // ИНИЦИАЛИЗАЦИЯ СИСТЕМЫ МОДАЛЬНЫХ ОКОН
+  // ========================================
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('Initializing modal system...');
+    
+    // Добавляем обработчик Escape
+    document.addEventListener('keydown', handleEscapeKey);
+    
+    // Настраиваем обработчики для кнопок закрытия
+    const closeButtons = [
+      { id: 'closeModal', modal: 'orderModal' },
+      { id: 'closeProductModal', modal: 'productModal' },
+      { id: 'closeGalleryModal', modal: 'galleryModal' },
+      { id: 'closeStructureModal', modal: 'structureModal' }
+    ];
+    
+    closeButtons.forEach(button => {
+      const element = document.getElementById(button.id);
+      if (element) {
+        element.addEventListener('click', function(e) {
           e.preventDefault();
-          openModal();
+          e.stopPropagation();
+          closeModal(button.modal);
         });
       }
     });
-  
-    // Close modal button - multiple approaches for reliability
-    if (closeModalBtn) {
-      closeModalBtn.addEventListener('click', function(e) {
+    
+    // Настраиваем обработчики для клика по фону
+    const modals = ['orderModal', 'productModal', 'galleryModal', 'structureModal'];
+    modals.forEach(modalId => {
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.addEventListener('click', function(e) {
+          if (e.target === modal) {
+            closeModal(modalId);
+          }
+        });
+      }
+    });
+    
+    // Настраиваем триггеры для открытия модальных окон
+    // Галерея
+    document.querySelectorAll('[data-modal="gallery"]').forEach(element => {
+      element.addEventListener('click', function(e) {
         e.preventDefault();
-        e.stopPropagation();
-        closeModal();
+        const index = parseInt(this.getAttribute('data-gallery-index') || '0');
+        openGalleryModal(index);
+      });
+    });
+    
+    // Продукты
+    document.querySelectorAll('[data-modal="product"]').forEach(element => {
+      element.addEventListener('click', function(e) {
+        e.preventDefault();
+        const productId = this.getAttribute('data-product-id') || 'g30';
+        openProductModal(productId);
+      });
+    });
+    
+    // Структура
+    document.querySelectorAll('[data-modal="structure"]').forEach(element => {
+      element.addEventListener('click', function(e) {
+        e.preventDefault();
+        openStructureModal();
+      });
+    });
+    
+    // Кнопки заказа
+    document.querySelectorAll('button').forEach(button => {
+      if (button.textContent.includes('Получить консультацию') ||
+          button.textContent.includes('Запросить детали') ||
+          button.textContent.includes('Получить расчет')) {
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          openOrderModal();
+        });
+      }
+    });
+    
+    // Кнопка "Оставить заявку" в модальном окне продукта
+    const orderFormBtn = document.getElementById('orderFormBtn');
+    if (orderFormBtn) {
+      orderFormBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        const productId = this.getAttribute('data-product-id') || 'g30';
+        openOrderForm(productId);
       });
     }
     
-    // Close product modal button
-    if (closeProductModalBtn) {
-      closeProductModalBtn.addEventListener('click', function(e) {
+    // Навигация галереи
+    const galleryPrevBtn = document.getElementById('galleryPrevBtn');
+    const galleryNextBtn = document.getElementById('galleryNextBtn');
+    
+    if (galleryPrevBtn) {
+      // Обработчик клика
+      galleryPrevBtn.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
-        console.log('Product modal close button clicked');
-        closeProductModal();
+        prevGalleryImage();
       });
       
-      // Add multiple event listeners for reliability
-      closeProductModalBtn.addEventListener('mousedown', function(e) {
+      // Обработчик touch для мобильных
+      galleryPrevBtn.addEventListener('touchend', function(e) {
         e.preventDefault();
         e.stopPropagation();
-        console.log('Product modal close button mousedown');
-        closeProductModal();
+        prevGalleryImage();
       });
     }
     
-    // Event delegation for close buttons
-    document.addEventListener('click', function(e) {
-      if (e.target && (e.target.id === 'closeModal' || e.target.closest('#closeModal'))) {
+    if (galleryNextBtn) {
+      // Обработчик клика
+      galleryNextBtn.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
-        console.log('Event delegation: closeModal clicked');
-        closeModal();
-      }
-      if (e.target && (e.target.id === 'closeProductModal' || e.target.closest('#closeProductModal'))) {
+        nextGalleryImage();
+      });
+      
+      // Обработчик touch для мобильных
+      galleryNextBtn.addEventListener('touchend', function(e) {
         e.preventDefault();
         e.stopPropagation();
-        console.log('Event delegation: closeProductModal clicked');
-        closeProductModal();
-      }
-    });
-    
-    // Additional event delegation for product modal close
-    document.addEventListener('click', function(e) {
-      // Check if clicked element is the close button or its children
-      if (e.target && e.target.closest('#closeProductModal')) {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log('Additional delegation: product modal close');
-        closeProductModal();
-      }
-    });
-    
-    // Close modal on background click
-    if (modal) {
-      modal.addEventListener('click', function(e) {
-        // Only close if clicking on the modal background, not on the modal content
-        if (e.target === modal) {
-          e.stopPropagation();
-          closeModal();
-        }
+        nextGalleryImage();
       });
     }
     
-    // Close product modal on background click
-    if (productModal) {
-      productModal.addEventListener('click', function(e) {
-        // Only close if clicking on the modal background, not on the modal content
-        if (e.target === productModal) {
-          e.stopPropagation();
-          closeProductModal();
-        }
-      });
-    }
-    
-    // Close modal on Escape key
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        if (modal && !modal.classList.contains('hidden')) {
-          closeModal();
-        }
-        if (productModal && !productModal.classList.contains('hidden')) {
-          closeProductModal();
-        }
-      }
-    });
-    
-    // Additional simple approach - direct button access
-    setTimeout(() => {
-      const closeProductBtn = document.getElementById('closeProductModal');
-      if (closeProductBtn) {
-        console.log('Setting up direct close button access');
-        closeProductBtn.onclick = function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          console.log('Direct onclick: product modal close');
-          const modal = document.getElementById('productModal');
-          if (modal) {
-            modal.classList.add('hidden');
-            document.body.style.overflow = 'auto';
-          }
-        };
-      }
-    }, 100);
+    console.log('Modal system initialized successfully');
   });
-  
+
   // Burger menu
   document.addEventListener('DOMContentLoaded', function () {
     const burgerToggle = document.getElementById('burgerToggle');
