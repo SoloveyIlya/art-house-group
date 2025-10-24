@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
           { 
             label: 'ПЛОЩАДЬ', 
             value: '30 м²',
-            icon: '<path d="M3 3v18h18V3H3zm16 16H5V5h14v14z"/>'
+            icon: '<path d="M3 3h18v18H3V3zm2 2v14h14V5H5z"/>'
           },
           { 
             label: 'ВМЕСТИМОСТЬ', 
@@ -116,12 +116,12 @@ document.addEventListener('DOMContentLoaded', function () {
           { 
             label: 'РАЗМЕРЫ', 
             value: '6.0×5.0×2.8 м',
-            icon: '<path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>'
+            icon: '<path d="M3 3h18v18H3V3zm2 2v14h14V5H5zm2 2h10v10H7V7z"/>'
           },
           { 
             label: 'ОБЩИЙ ВЕС НЕТТО', 
             value: '2.5 тонны',
-            icon: '<path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>'
+            icon: '<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>'
           }
         ]
       }
@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
     if (titleElement) titleElement.textContent = product.title;
     if (priceElement) priceElement.textContent = product.price;
-    if (descriptionElement) descriptionElement.textContent = product.description;
+    if (descriptionElement) descriptionElement.textContent = product.short_description || product.description;
     if (imageElement) {
       imageElement.src = product.image;
       imageElement.alt = product.title;
@@ -186,10 +186,80 @@ document.addEventListener('DOMContentLoaded', function () {
       
       characteristicsElement.innerHTML = html;
     }
+    
+    // Update additional systems
+    updateAdditionalSystems(product);
+  }
+
+  // Function to update additional systems
+  function updateAdditionalSystems(product) {
+    // External Protection Systems
+    const externalProtectionSection = document.getElementById('externalProtectionSection');
+    const externalProtectionList = document.getElementById('externalProtectionList');
+    
+    if (product.external_protection && product.external_protection.trim()) {
+      const items = product.external_protection.split('|').filter(item => item.trim());
+      if (items.length > 0) {
+        externalProtectionList.innerHTML = items.map(item => 
+          `<li class="flex items-center text-gray-300">
+            <i class="ri-shield-check-line text-primary mr-2"></i>
+            <span>${item.trim()}</span>
+          </li>`
+        ).join('');
+        externalProtectionSection.style.display = 'block';
+      } else {
+        externalProtectionSection.style.display = 'none';
+      }
+    } else {
+      externalProtectionSection.style.display = 'none';
+    }
+    
+    // Guest Control Systems
+    const guestControlSection = document.getElementById('guestControlSection');
+    const guestControlList = document.getElementById('guestControlList');
+    
+    if (product.guest_control && product.guest_control.trim()) {
+      const items = product.guest_control.split('|').filter(item => item.trim());
+      if (items.length > 0) {
+        guestControlList.innerHTML = items.map(item => 
+          `<li class="flex items-center text-gray-300">
+            <i class="ri-user-settings-line text-primary mr-2"></i>
+            <span>${item.trim()}</span>
+          </li>`
+        ).join('');
+        guestControlSection.style.display = 'block';
+      } else {
+        guestControlSection.style.display = 'none';
+      }
+    } else {
+      guestControlSection.style.display = 'none';
+    }
+    
+    // Product Accessories
+    const accessoriesSection = document.getElementById('accessoriesSection');
+    const accessoriesList = document.getElementById('accessoriesList');
+    
+    if (product.accessories && product.accessories.trim()) {
+      const items = product.accessories.split('|').filter(item => item.trim());
+      if (items.length > 0) {
+        accessoriesList.innerHTML = items.map(item => 
+          `<li class="flex items-center text-gray-300">
+            <i class="ri-tools-line text-primary mr-2"></i>
+            <span>${item.trim()}</span>
+          </li>`
+        ).join('');
+        accessoriesSection.style.display = 'block';
+      } else {
+        accessoriesSection.style.display = 'none';
+      }
+    } else {
+      accessoriesSection.style.display = 'none';
+    }
   }
 
   // Make functions globally available
   window.smoothScrollTo = smoothScrollTo;
+  window.updateAdditionalSystems = updateAdditionalSystems;
 
   // ========================================
   // НОВАЯ ПРОСТАЯ СИСТЕМА МОДАЛЬНЫХ ОКОН

@@ -1983,6 +1983,15 @@ body.modal-open {
   border-radius: 8px !important;
 }
 
+/* Изображение в модальном окне продукта - значительно больше чем на карточке */
+#productModalImage {
+  max-width: 100% !important;
+  height: 24rem !important; /* h-96 = 24rem, значительно больше чем на карточке */
+  width: 100% !important;
+  object-fit: cover !important;
+  border-radius: 8px !important;
+}
+
 /* Адаптивность */
 @media (max-width: 768px) {
   [id$="Modal"] {
