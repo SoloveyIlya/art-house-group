@@ -208,9 +208,9 @@
           <span class="text-primary">Art House</span> — <span class="text-white">современные решения для комфортной жизни</span>
         </h1>
         <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-          <button class="bg-primary text-dark px-8 py-4 text-lg font-medium rounded-button hover:bg-secondary hover:shadow-glow smooth-transition whitespace-nowrap">
+          <a href="#contact" class="bg-primary text-dark px-8 py-4 text-lg font-medium rounded-button hover:bg-secondary hover:shadow-glow smooth-transition whitespace-nowrap inline-block text-center">
             Получить консультацию
-          </button>
+          </a>
           <a href="#catalog" class="border-2 border-accent text-accent px-8 py-4 text-lg font-medium rounded-button hover:bg-accent hover:text-dark hover:shadow-glow smooth-transition whitespace-nowrap inline-block text-center">
             Смотреть каталог
           </a>
@@ -526,9 +526,9 @@
       <p class="text-black text-lg md:text-xl mb-8 opacity-90">
         Получите бесплатную консультацию и расчет стоимости
       </p>
-      <button class="bg-gray-900 text-primary px-8 py-4 text-lg font-semibold rounded-button hover:bg-gray-800 transition-all duration-300 shadow-lg">
+      <a href="#contact" class="bg-gray-900 text-primary px-8 py-4 text-lg font-semibold rounded-button hover:bg-gray-800 transition-all duration-300 shadow-lg inline-block">
         Получить расчет
-      </button>
+      </a>
     </div>
   </section>
 
@@ -1031,76 +1031,59 @@
           </h2>
           
           <div class="bg-gray-800 rounded-xl p-8">
-            <form class="space-y-6">
-            <!-- Name Field -->
+            <form id="contactForm" class="space-y-6">
+            <!-- Фамилия -->
+            <div>
+              <label class="block text-white font-medium mb-2">Фамилия</label>
+              <input type="text" name="lastName" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:border-primary focus:outline-none transition-colors" placeholder="Введите фамилию">
+            </div>
+
+            <!-- Имя -->
             <div>
               <label class="block text-white font-medium mb-2">Имя</label>
-              <input type="text" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:border-primary focus:outline-none transition-colors" placeholder="Введите имя">
+              <input type="text" name="firstName" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:border-primary focus:outline-none transition-colors" placeholder="Введите имя">
+            </div>
+
+            <!-- Модель дома -->
+            <div>
+              <label class="block text-white font-medium mb-2">Модель дома</label>
+              <select name="houseModel" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:border-primary focus:outline-none transition-colors">
+                <option value="">Выберите модель</option>
+                <option value="g30">Space Capsule House G30</option>
+                <option value="g40">Space Capsule House G40</option>
+                <option value="g50">Space Capsule House G50</option>
+                <option value="custom">Индивидуальный проект</option>
+              </select>
+            </div>
+
+            <!-- Страна доставки -->
+            <div>
+              <label class="block text-white font-medium mb-2">Страна доставки</label>
+              <input type="text" name="deliveryCountry" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:border-primary focus:outline-none transition-colors" placeholder="Введите страну доставки">
+            </div>
+
+            <!-- WhatsApp -->
+            <div>
+              <label class="block text-white font-medium mb-2">WhatsApp</label>
+              <input type="tel" name="whatsapp" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:border-primary focus:outline-none transition-colors" placeholder="Введите номер WhatsApp">
+            </div>
+
+            <!-- Telegram -->
+            <div>
+              <label class="block text-white font-medium mb-2">Telegram</label>
+              <input type="text" name="telegram" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:border-primary focus:outline-none transition-colors" placeholder="Введите Telegram">
             </div>
 
             <!-- Email -->
             <div>
               <label class="block text-white font-medium mb-2">Email</label>
-              <input type="email" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:border-primary focus:outline-none transition-colors" placeholder="Введите email">
+              <input type="email" name="email" required class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:border-primary focus:outline-none transition-colors" placeholder="Введите email">
             </div>
 
-            <!-- Phone -->
+            <!-- reCAPTCHA v2 -->
             <div>
-              <label class="block text-white font-medium mb-2">Телефон</label>
-              <input type="tel" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:border-primary focus:outline-none transition-colors" placeholder="Введите телефон">
-            </div>
-
-            <!-- Preferred Home Model -->
-            <div>
-              <label class="block text-white font-medium mb-2">Предпочитаемая модель дома</label>
-              <select class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:border-primary focus:outline-none transition-colors">
-                <option value="">Выберите модель</option>
-                <option value="g30">Space Capsule House G30</option>
-                <option value="g40">Space Capsule House G40</option>
-                <option value="g50">Space Capsule House G50</option>
-                <option value="custom">Индивидуальный проект</option>
-              </select>
-            </div>
-
-            <!-- Project Timeline -->
-            <div>
-              <label class="block text-white font-medium mb-4">Сроки проекта</label>
-              <div class="grid grid-cols-2 gap-4">
-                <label class="flex items-center space-x-3">
-                  <input type="radio" name="timeline" value="asap" class="w-4 h-4 text-primary bg-gray-700 border-gray-600 focus:ring-primary">
-                  <span class="text-white">ASAP</span>
-                </label>
-                <label class="flex items-center space-x-3">
-                  <input type="radio" name="timeline" value="3months" class="w-4 h-4 text-primary bg-gray-700 border-gray-600 focus:ring-primary">
-                  <span class="text-white">В течение 3 месяцев</span>
-                </label>
-                <label class="flex items-center space-x-3">
-                  <input type="radio" name="timeline" value="6months" class="w-4 h-4 text-primary bg-gray-700 border-gray-600 focus:ring-primary">
-                  <span class="text-white">В течение 6 месяцев</span>
-                </label>
-                <label class="flex items-center space-x-3">
-                  <input type="radio" name="timeline" value="planning" class="w-4 h-4 text-primary bg-gray-700 border-gray-600 focus:ring-primary">
-                  <span class="text-white">Только планирую</span>
-                </label>
-              </div>
-            </div>
-
-            <!-- Preferred Home Model -->
-            <div>
-              <label class="block text-white font-medium mb-2">Предпочитаемая модель дома</label>
-              <select name="model" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:border-primary focus:outline-none transition-colors">
-                <option value="">Выберите модель</option>
-                <option value="g30">Space Capsule House G30</option>
-                <option value="g40">Space Capsule House G40</option>
-                <option value="g50">Space Capsule House G50</option>
-                <option value="custom">Индивидуальный проект</option>
-              </select>
-            </div>
-
-            <!-- Additional Details -->
-            <div>
-              <label class="block text-white font-medium mb-2">Дополнительные детали</label>
-              <textarea rows="4" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white focus:border-primary focus:outline-none transition-colors resize-none" placeholder="Расскажите о вашем проекте..."></textarea>
+              <label class="block text-white font-medium mb-2">Подтвердите, что вы не робот</label>
+              <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY_HERE"></div>
             </div>
 
             <!-- Submit Button -->
@@ -1434,6 +1417,9 @@
     </div>
   </div>
 
+  <!-- reCAPTCHA v2 Script -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  
   <!-- JS -->
   <script src="script.js"></script>
   <!-- WordPress API Integration -->

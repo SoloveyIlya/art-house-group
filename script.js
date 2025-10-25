@@ -466,17 +466,8 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
     
-    // Кнопки заказа
-    document.querySelectorAll('button').forEach(button => {
-      if (button.textContent.includes('Получить консультацию') ||
-          button.textContent.includes('Запросить детали') ||
-          button.textContent.includes('Получить расчет')) {
-        button.addEventListener('click', function(e) {
-          e.preventDefault();
-          openOrderModal();
-        });
-      }
-    });
+    // Кнопки заказа (теперь работают как ссылки, обработчики не нужны)
+    // Все кнопки "Получить консультацию" и "Получить расчет" теперь ведут напрямую к #contact
     
     // Кнопка "Оставить заявку" в модальном окне продукта
     const orderFormBtn = document.getElementById('orderFormBtn');
@@ -525,6 +516,138 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
     console.log('Modal system initialized successfully');
+  });
+
+  // ========================================
+  // СИСТЕМА reCAPTCHA v2 И ВАЛИДАЦИИ ФОРМЫ
+  // ========================================
+  
+  // Функция для проверки reCAPTCHA
+  function verifyRecaptcha() {
+    const response = grecaptcha.getResponse();
+    return response.length > 0;
+  }
+  
+  // Валидация формы
+  function validateForm(formData) {
+    const errors = [];
+    
+    // Проверка обязательных полей
+    const requiredFields = ['lastName', 'firstName', 'houseModel', 'deliveryCountry', 'whatsapp', 'telegram', 'email'];
+    
+    requiredFields.forEach(field => {
+      if (!formData.get(field) || formData.get(field).trim() === '') {
+        errors.push(`Поле "${getFieldLabel(field)}" обязательно для заполнения`);
+      }
+    });
+    
+    // Проверка email
+    const email = formData.get('email');
+    if (email && !isValidEmail(email)) {
+      errors.push('Некорректный формат email');
+    }
+    
+    // Проверка reCAPTCHA
+    if (!verifyRecaptcha()) {
+      errors.push('Пожалуйста, подтвердите, что вы не робот');
+    }
+    
+    // Проверка WhatsApp (должен содержать только цифры и +)
+    const whatsapp = formData.get('whatsapp');
+    if (whatsapp && !isValidPhone(whatsapp)) {
+      errors.push('Некорректный формат номера WhatsApp');
+    }
+    
+    return errors;
+  }
+  
+  // Получение названия поля для ошибок
+  function getFieldLabel(fieldName) {
+    const labels = {
+      'lastName': 'Фамилия',
+      'firstName': 'Имя',
+      'houseModel': 'Модель дома',
+      'deliveryCountry': 'Страна доставки',
+      'whatsapp': 'WhatsApp',
+      'telegram': 'Telegram',
+      'email': 'Email'
+    };
+    return labels[fieldName] || fieldName;
+  }
+  
+  // Валидация email
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+  
+  // Валидация телефона
+  function isValidPhone(phone) {
+    const phoneRegex = /^[\+]?[0-9\s\-\(\)]+$/;
+    return phoneRegex.test(phone) && phone.replace(/[\s\-\(\)]/g, '').length >= 10;
+  }
+  
+  // Показ ошибок
+  function showErrors(errors) {
+    // Удаляем предыдущие ошибки
+    const existingErrors = document.querySelectorAll('.form-error');
+    existingErrors.forEach(error => error.remove());
+    
+    // Показываем новые ошибки
+    const form = document.getElementById('contactForm');
+    if (form && errors.length > 0) {
+      const errorContainer = document.createElement('div');
+      errorContainer.className = 'bg-red-900 border border-red-500 text-red-100 px-4 py-3 rounded mb-4';
+      errorContainer.innerHTML = `
+        <div class="font-bold mb-2">Ошибки в форме:</div>
+        <ul class="list-disc list-inside">
+          ${errors.map(error => `<li>${error}</li>`).join('')}
+        </ul>
+      `;
+      form.insertBefore(errorContainer, form.firstChild);
+      
+      // Прокручиваем к ошибкам
+      errorContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+  
+  // Обработка отправки формы
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    
+    const form = e.target;
+    const formData = new FormData(form);
+    
+    // Валидация
+    const errors = validateForm(formData);
+    
+    if (errors.length > 0) {
+      showErrors(errors);
+      return false;
+    }
+    
+    // Если валидация прошла успешно
+    console.log('Форма валидна, данные:', Object.fromEntries(formData));
+    
+    // Здесь можно добавить отправку данных на сервер
+    alert('Форма успешно отправлена! Мы свяжемся с вами в ближайшее время.');
+    
+    // Очистка формы
+    form.reset();
+    grecaptcha.reset();
+    
+    // Удаление ошибок
+    const existingErrors = document.querySelectorAll('.form-error');
+    existingErrors.forEach(error => error.remove());
+  }
+  
+  // Инициализация системы reCAPTCHA и валидации
+  document.addEventListener('DOMContentLoaded', function() {
+    // Настраиваем обработчик формы
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+      contactForm.addEventListener('submit', handleFormSubmit);
+    }
   });
 
   // Burger menu
