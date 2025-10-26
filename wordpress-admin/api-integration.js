@@ -271,16 +271,16 @@ function updateProductModalContentFromAPI(productId) {
         for (let i = 0; i < 4; i++) {
             const char = characteristics[i];
             html += `
-                <div class="bg-gray-800 rounded-xl p-4 border border-gray-700">
-                    <div class="flex items-center mb-3">
-                        <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center mr-3">
-                            <svg class="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
+                <div class="bg-gray-800 rounded-xl p-2 sm:p-4 border border-gray-700">
+                    <div class="flex items-center mb-1 sm:mb-3">
+                        <div class="w-5 h-5 sm:w-8 sm:h-8 bg-primary rounded-lg flex items-center justify-center mr-1 sm:mr-3">
+                            <svg class="w-3 h-3 sm:w-5 sm:h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M3 3v18h18V3H3zm16 16H5V5h14v14z"/>
                             </svg>
                         </div>
-                        <span class="text-gray-400 text-sm font-medium">${char.label}</span>
+                        <span class="text-gray-400 text-xs sm:text-sm font-medium">${char.label}</span>
                     </div>
-                    <div class="text-white text-xl font-bold">${char.value}</div>
+                    <div class="text-white text-xs sm:text-xl font-bold">${char.value}</div>
                 </div>
             `;
         }
@@ -289,16 +289,16 @@ function updateProductModalContentFromAPI(productId) {
         if (characteristics[4]) {
             const char = characteristics[4];
             html += `
-                <div class="bg-gray-800 rounded-xl p-4 border border-gray-700 col-span-2 mx-auto max-w-xs">
-                    <div class="flex items-center mb-3">
-                        <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center mr-3">
-                            <svg class="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
+                <div class="bg-gray-800 rounded-xl p-2 sm:p-4 border border-gray-700 col-span-2 mx-auto max-w-xs">
+                    <div class="flex items-center mb-1 sm:mb-3">
+                        <div class="w-5 h-5 sm:w-8 sm:h-8 bg-primary rounded-lg flex items-center justify-center mr-1 sm:mr-3">
+                            <svg class="w-3 h-3 sm:w-5 sm:h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
                             </svg>
                         </div>
-                        <span class="text-gray-400 text-sm font-medium">${char.label}</span>
+                        <span class="text-gray-400 text-xs sm:text-sm font-medium">${char.label}</span>
                     </div>
-                    <div class="text-white text-xl font-bold">${char.value}</div>
+                    <div class="text-white text-xs sm:text-xl font-bold">${char.value}</div>
                 </div>
             `;
         }

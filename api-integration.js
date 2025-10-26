@@ -1,6 +1,7 @@
 /**
  * Art House Products API Integration
  * This file handles the connection between WordPress API and the frontend
+ * Version 1.1 - Updated mobile font sizes for characteristics
  */
 
 class ArtHouseAPI {
@@ -71,8 +72,8 @@ class ArtHouseAPI {
             <div class="h-64 bg-cover bg-center" style="background-image: url('${imageUrl}')"></div>
             <div class="p-6">
                 <div class="flex justify-between items-start mb-3">
-                    <h3 class="text-xl font-bold text-white leading-tight pr-2">${product.title}</h3>
-                    <span class="text-primary text-xl font-bold ml-2 flex-shrink-0">${price}</span>
+                    <h3 class="text-lg sm:text-xl font-bold text-white leading-tight pr-2">${product.title}</h3>
+                    <span class="text-primary text-lg sm:text-xl font-bold ml-2 flex-shrink-0">${price}</span>
                 </div>
                 <div class="flex items-center justify-center">
                     <a href="#" class="text-primary hover:text-secondary transition-colors text-lg font-medium" 
@@ -307,16 +308,16 @@ class ArtHouseAPI {
             for (let i = 0; i < 4; i++) {
                 const char = characteristics[i];
                 html += `
-                    <div class="bg-gray-800 rounded-xl p-4 border border-gray-700">
-                        <div class="flex items-center mb-3">
-                            <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center mr-3">
-                                <svg class="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
+                    <div class="bg-gray-800 rounded-xl p-2 sm:p-4 border border-gray-700">
+                        <div class="flex items-center mb-1 sm:mb-3">
+                            <div class="w-5 h-5 sm:w-8 sm:h-8 bg-primary rounded-lg flex items-center justify-center mr-1 sm:mr-3">
+                                <svg class="w-3 h-3 sm:w-5 sm:h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="${icons[i]}"/>
                                 </svg>
                             </div>
-                            <span class="text-gray-400 text-sm font-medium">${char.label}</span>
+                            <span class="text-gray-400 text-xs sm:text-sm font-medium">${char.label}</span>
                         </div>
-                        <div class="text-white text-xl font-bold">${char.value}</div>
+                        <div class="text-white text-xs sm:text-xl font-bold">${char.value}</div>
                     </div>
                 `;
             }
@@ -325,16 +326,16 @@ class ArtHouseAPI {
             if (characteristics[4]) {
                 const char = characteristics[4];
                 html += `
-                    <div class="bg-gray-800 rounded-xl p-4 border border-gray-700 col-span-2 mx-auto max-w-xs">
-                        <div class="flex items-center mb-3">
-                            <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center mr-3">
-                                <svg class="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
+                    <div class="bg-gray-800 rounded-xl p-2 sm:p-4 border border-gray-700 col-span-2 mx-auto max-w-xs">
+                        <div class="flex items-center mb-1 sm:mb-3">
+                            <div class="w-5 h-5 sm:w-8 sm:h-8 bg-primary rounded-lg flex items-center justify-center mr-1 sm:mr-3">
+                                <svg class="w-3 h-3 sm:w-5 sm:h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
                                 </svg>
                             </div>
-                            <span class="text-gray-400 text-sm font-medium">${char.label}</span>
+                            <span class="text-gray-400 text-xs sm:text-sm font-medium">${char.label}</span>
                         </div>
-                        <div class="text-white text-xl font-bold">${char.value}</div>
+                        <div class="text-white text-xs sm:text-xl font-bold">${char.value}</div>
                     </div>
                 `;
             }
@@ -618,16 +619,16 @@ function updateProductModalContentFromAPI(productId) {
             for (let i = 0; i < 4; i++) {
                 const char = characteristics[i];
                 html += `
-                    <div class="bg-gray-800 rounded-xl p-4 border border-gray-700">
-                        <div class="flex items-center mb-3">
-                            <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center mr-3">
-                                <svg class="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
+                    <div class="bg-gray-800 rounded-xl p-2 sm:p-4 border border-gray-700">
+                        <div class="flex items-center mb-1 sm:mb-3">
+                            <div class="w-5 h-5 sm:w-8 sm:h-8 bg-primary rounded-lg flex items-center justify-center mr-1 sm:mr-3">
+                                <svg class="w-3 h-3 sm:w-5 sm:h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="${icons[i]}"/>
                                 </svg>
                             </div>
-                            <span class="text-gray-400 text-sm font-medium">${char.label}</span>
+                            <span class="text-gray-400 text-xs sm:text-sm font-medium">${char.label}</span>
                         </div>
-                        <div class="text-white text-xl font-bold">${char.value}</div>
+                        <div class="text-white text-xs sm:text-xl font-bold">${char.value}</div>
                     </div>
                 `;
             }
@@ -645,7 +646,7 @@ function updateProductModalContentFromAPI(productId) {
                         </div>
                         <span class="text-gray-400 text-sm font-medium">${char.label}</span>
                     </div>
-                    <div class="text-white text-xl font-bold">${char.value}</div>
+                    <div class="text-white text-sm sm:text-xl font-bold">${char.value}</div>
                 </div>
             `;
         }
